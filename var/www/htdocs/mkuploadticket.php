@@ -1,4 +1,18 @@
-<?php include("envvars.php"); ?>
+<?php
+
+# mkuploadticket.php
+#
+# creates an upload ticket directory and notification email
+#
+#
+# This script is licensed under GNU GPL version 3.0 or above
+#
+# Copyright (C) 2008 The BitBurro Development Team
+#
+# This file is part of the BitBurro project.
+# Feedback/comment/suggestions: http://bitburro.sf.net
+
+include("envvars.php"); ?>
 <html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
 <?php
 import_request_variables('p','p_');
