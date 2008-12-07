@@ -1,0 +1,76 @@
+<html><head><title>BitBurro - Startseite</title></head>
+<body><div align=right><img src="/bitburro.gif" alt="BitBurro Logo" width="240" height="88"></div>
+<font size="+3" face="Helvetica,Verdana,Arial">BitBurro</font>
+<P>
+
+<HR>
+<table><tr><td><font size="+2" face="Helvetica,Verdana,Arial">Inhalte bereitstellen</font></td>
+<td><font size="+2" face="Helvetica,Verdana,Arial">oder</font></td>
+<td><font size="+2" face="Helvetica,Verdana,Arial">Upload-Ticket erstellen?</font></td>
+</tr><tr>
+<td>
+<form enctype="multipart/form-data" action="mkdeploy.php" method="POST">
+<input type="hidden" name="MAX_FILE_SIZE" value="2000000000">
+
+<table border="0"><tr>
+<td><font face="Helvetica,Verdana,Arial">Quell-eMail-Adresse:</font></td>
+<td><input type="text" name="sourcemail" size="30" maxlength="128"></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Ziel-eMail-Adresse:</font></td>
+<td><input type="text" name="targetmail" size="30" maxlength="128"></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Dateiname:</font></td>
+<td><input name="uploadedfile" type="file" /></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Passwortschutz:</font></td>
+<td><input type="checkbox" name="passenable"></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Passwort</font></td>
+<td><input type="text" name="password" size="30" maxlength="30"></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Vorhaltezeit</font></td>
+<td>
+<input type="radio" name="maxage" value="1" checked><font face="Helvetica,Verdana,Arial">ein Tag</font></BR>
+<input type="radio" name="maxage" value="3"><font face="Helvetica,Verdana,Arial">drei Tage</font></BR>
+<input type="radio" name="maxage" value="7"><font face="Helvetica,Verdana,Arial">sieben Tage</font></BR>
+<input type="radio" name="maxage" value="30"><font face="Helvetica,Verdana,Arial">dreissig Tage</font></BR>
+</td>
+</tr><tr>
+<td></td>
+<td><input type="submit" value="Hochladen" /></td>
+</tr></table>
+</form>
+</td>
+<td></td>
+<td>
+<form enctype="multipart/form-data" action="mkuploadticket.php" method="POST">
+<table border="0"><tr>
+<td><font face="Helvetica,Verdana,Arial">Quell-eMail-Adresse:</font></td>
+<td><input type="text" name="sourcemail" size="30" maxlength="128"></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Ziel-eMail-Adresse:</font></td>
+<td><input type="text" name="targetmail" size="30" maxlength="128"></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Passwortschutz:</font></td>
+<td><input type="checkbox" name="passenable"></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Passwort</font></td>
+<td><input type="text" name="password" size="30" maxlength="30"></td>
+</tr><tr>
+<td><font face="Helvetica,Verdana,Arial">Vorhaltezeit</font></td>
+<td>
+<input type="radio" name="maxage" value="1" checked><font face="Helvetica,Verdana,Arial">ein Tag</font></BR>
+<input type="radio" name="maxage" value="3"><font face="Helvetica,Verdana,Arial">drei Tage</font></BR>
+<input type="radio" name="maxage" value="7"><font face="Helvetica,Verdana,Arial">sieben Tage</font></BR>
+<input type="radio" name="maxage" value="30"><font face="Helvetica,Verdana,Arial">dreissig Tage</font></BR>
+</td>
+</tr><tr>
+<td></td>
+<td><input type="submit" value="Erstellen" /></td>
+</form>
+</td>
+</tr></table>
+</td></tr></table>
+<HR>
+<font size="+1" face="Helvetica,Verdana,Arial">Alle Felder sind freiwillig. Falls Sie auf eMail-Adressen verzichten, sollten Sie sich die erzeugten Links aufschreiben.</font>
+</body></html>
