@@ -1,0 +1,17 @@
+ToDo-List for BitBurro:
+=======================
+
+- Create something like "setup.php", where every option is presented in a
+  nice web-like user-friendly way
+
+- Cleanup success and error messages
+
+- Set error documents in .htaccess
+- Define error document path (just now hardcoded to root dir)
+
+- Try to set PHP variables in .htaccess (php_value max_execution_time 42)
+
+- Rewrite cleanup script in PHP :-D
+
+
+...Documentation, Documentation, Documentation!
