@@ -1,4 +1,19 @@
-<?php include("envvars.php"); ?>
+<?php
+
+# mkdeployupload.php
+#
+# handles upload-POST for "upload tickets" and provides a link
+# back to upload page for reception of more files.
+#
+#
+# This script is licensed under GNU GPL version 3.0 or above
+#
+# Copyright (C) 2008 The BitBurro Development Team
+#
+# This file is part of the BitBurro project.
+# Feedback/comment/suggestions: http://bitburro.sf.net
+
+include("envvars.php"); ?>
 <html><head><title><?php echo $sitename ?> - Dateiablage</title></head><body>
 <?php
 

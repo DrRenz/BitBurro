@@ -1,4 +1,19 @@
-<?php include("envvars.php"); ?>
+<?php
+
+# mkdeploy.php
+#
+# puts a single file into a directory on your web server,
+# the so-called "upload handler"
+#
+#
+# This script is licensed under GNU GPL version 3.0 or above
+#
+# Copyright (C) 2008 The BitBurro Development Team
+#
+# This file is part of the BitBurro project.
+# Feedback/comment/suggestions: http://bitburro.sf.net
+
+include("envvars.php"); ?>
 <html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
 <?php
 import_request_variables('p','p_');
