@@ -1,8 +1,10 @@
-ToDo-List for BitBurro:
+ToDo list for BitBurro:
 =======================
 
 - Create something like "setup.php", where every option is presented in a
   nice web-like user-friendly way
+
+- Templateize appearance and email messages
 
 - Cleanup success and error messages
 

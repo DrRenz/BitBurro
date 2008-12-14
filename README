@@ -1,4 +1,43 @@
 BitBurro ReadMe
 ===============
 
-Nothing in here.
+Welcome to BitBurro!
+
+This software is licensed under GNU GPL version 3.0 or above
+Copyright (C) 2008 The BitBurro Development Team
+
+This file is part of the BitBurro project.
+Feedback/comment/suggestions: http://bitburro.sf.net
+
+
+If you've stumbled upon this nice little piece of software, probably
+it was for good reason ;-)
+
+BitBurro is a very simple, but not stupid, one-click web-based file
+hosting solution written in PHP, which can be used to drop files for
+later pickup, or create a one-time upload dir for reception of files. 
+
+The solution is based on roughly six different php scripts and some
+html template files; it's not designed to be holistic in any way!
+After searching around the web, none of the simple "web-upload your
+files and manage them online" approaches did fit the task very well,
+as all of them were either too complicated for Joe Average (the "file
+management approach") or too simple (e.g. no upload ticket possible,
+the "unidirectional approach"). Right now the project is running in
+an evaluation phase on a publicly accessible web server in my company
+for data distribution to our customers and partners, with positive
+feedback so far.
+
+It's not a substitute for a full-blown ftp server, but an ad-hoc
+solution for the occasional need to transfer mid-size to large files
+not suited for email transfer from or to people only known by their
+email addresses.
+
+It includes password protection, configurable file aging / auto-cleanup
+and, for added security, the option for a two-server setup, where files
+uploaded are moved from the external web server to an internal secure
+storage, while still maintaining one-click accessibility.
+
+As this is only a pet project for the developers, don't expect a fully
+cleaned and documented build tree ;-)
+
