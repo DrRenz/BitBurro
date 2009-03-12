@@ -14,9 +14,13 @@
 
 include("config/envvars.php");
 
-$indexfilename="templates/index.html";
-$indexcontent = file_get_contents($indexfilename);
+$templatetags = array("%%%SITENAME%%%", "%%%MAILADDRESS%%%");
+$templatesubst = array($sitename, $mailsupport);
 
-echo $indexcontent;
+$indexfilename="templates/index.html";
+$templatecontent = file_get_contents($indexfilename);
+$outputcontent = str_replace($templatetags, $templatesubst, $templatecontent);
+
+echo $outputcontent;
 
 ?>
