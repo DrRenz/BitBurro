@@ -14,7 +14,7 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-include("envvars.php"); ?>
+include("config/envvars.php"); ?>
 <html><head><title><?php echo $sitename ?> - File storage</title></head>
 <body><div align=right><img src="/bitburro.gif" alt="BitBurro Logo" width="240" height="88"></div>
 <font size="+3" face="Helvetica,Verdana,Arial"><?php echo $sitename; ?></font>

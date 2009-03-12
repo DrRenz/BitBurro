@@ -12,7 +12,7 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-include("envvars.php"); ?>
+include("config/envvars.php"); ?>
 <html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
 <?php
 import_request_variables('p','p_');
