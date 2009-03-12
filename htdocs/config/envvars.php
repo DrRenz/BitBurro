@@ -30,7 +30,7 @@ $filepath = "filebase";
 # Do we allow tickets without a "sender" email address?
 #
 # ...for creating a download-only ticket:
-$allow_anonymous_submits = "1";
+$allow_anonymous_submission = "1";
 # ...for creating an upload ticket:
 $allow_anonymous_uploads = "1";
 
@@ -50,7 +50,7 @@ $sitename = "BitBurro";
 # Who can be contacted if everything fails
 $mailsupport = "bitburro-support@example.org";
 
-# For anonymous submits, this is the sender address in outgoing
+# For anonymous submissions, this is the sender address in outgoing
 # emails
 #$mailfrom = "BitBurro-Server <bitburro-support@example.org>";
 $mailfrom = "BitBurro-Server <noreply@example.org>";
