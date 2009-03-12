@@ -1,0 +1,26 @@
+Changes in php.ini:
+
+
+Dist vs. New:
+
+max_execution_time = 30     ; Maximum execution time of each  |	max_execution_time = 7200     ; Maximum execution time of eac
+max_input_time = 60	; Maximum amount of time each script  |	max_input_time = 7200	; Maximum amount of time each script 
+memory_limit = 128M      ; Maximum amount of memory a script  |	memory_limit = 1G      ; Maximum amount of memory a script ma
+post_max_size = 8M					      |	post_max_size = 2000M
+upload_max_filesize = 2M				      |	upload_max_filesize = 1999M
+						              |	upload_tmp_dir = /tmp/phpuploads
+
+output_buffering = Off					      |	output_buffering = 4096
+precision    =  12					      |	precision    =  14
+register_argc_argv = On					      |	register_argc_argv = Off
+register_long_arrays = On				      |	register_long_arrays = Off
+session.bug_compat_42 = 1				      |	session.bug_compat_42 = 0
+session.gc_divisor     = 100				      |	session.gc_divisor     = 1000
+session.hash_bits_per_character = 4			      |	session.hash_bits_per_character = 5
+short_open_tag = On					      |	short_open_tag = Off
+variables_order = "EGPCS"				      |	variables_order = "GPCS"
+allow_call_time_pass_reference = On			      |	allow_call_time_pass_reference = Off
+display_errors = On					      |	display_errors = Off
+error_reporting  =  E_ALL & ~E_NOTICE			      |	error_reporting  =  E_ALL
+log_errors = Off					      |	log_errors = On
+magic_quotes_gpc = On					      |	magic_quotes_gpc = Off
