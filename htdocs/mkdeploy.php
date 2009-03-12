@@ -13,7 +13,7 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-include("envvars.php"); ?>
+include("config/envvars.php"); ?>
 <html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
 <?php
 import_request_variables('p','p_');
@@ -25,7 +25,7 @@ echo "$datestampexpire<BR>";
 if ($p_maxage) {
     echo "$p_maxage<bR>";
     if ($p_maxage<31) {
-        $datestampexpire = date("U", mktime(date("G"),date("i"),date("s"),date("m"),date("d")+$p_maxage,date("Y")));
+        $datestampexpire = $datestampexpire+86400*$p_maxage;
     }
 }
 echo "$datestampexpire<BR>";
