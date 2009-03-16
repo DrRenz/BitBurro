@@ -12,28 +12,16 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-include("config/envvars.php"); ?>
+include("config/envvars.php");
+require("includes/functions.php"); ?>
 <html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
 <?php
 import_request_variables('p','p_');
 
 set_time_limit(0);
 
-$datestampexpire = date("U");
-echo "$datestampexpire<BR>";
-if ($p_maxage) {
-    echo "$p_maxage<bR>";
-    if ($p_maxage<31) {
-        $datestampexpire = date("U", mktime(date("G"),date("i"),date("s"),date("m"),date("d")+$p_maxage,date("Y")));
-    }
-}
-echo "$datestampexpire<BR>";
-
-$randomnumber = rand();
-
-$target_path = "$filepath/$datestampexpire/$randomnumber/";
-
-mkdir ($target_path, 0755, 1);
+$target_path = getticketdir($p_maxage);
+echo "$target_path<BR>";
 
 $linkaddress = $baseserver . "/" . $target_path;
 echo "Start Datei-Handling...<BR>";

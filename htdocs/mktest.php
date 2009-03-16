@@ -12,14 +12,27 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
+require("includes/functions.php");
 include("config/envvars.php"); ?>
+
 <html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>ID-Test...<BR>
 <?php
 import_request_variables('p','p_');
 
+echo "Hauptteil:" . @getticketdir("30") . "<BR>";
+
+echo "<HR>";
+if ( @SSLCon() ) { echo "SSL used<BR>"; } else { echo "No SSL<BR>"; }
+
+$this_dir = $_SERVER['SCRIPT_FILENAME'];
+echo "$this_dir<BR>"; 
+if (strpos($this_dir, basename($_SERVER['REQUEST_URI'])) !== false) $this_dir = reset(explode(basename($_SERVER['REQUEST_URI']), $this_dir));
+echo "$this_dir<BR>";
+
+
 set_time_limit(0);
 
-echo "<TABLE><TR><TD>Datestamp</TD><TD>UniqID</TD><TD>Decimal</TD></TR>";
+echo "<TABLE><TR><TD>Datestamp</TD><TD>UniqID</TD><TD>Substring</TD><TD>Reverse</TD><TD>Decimal</TD></TR>";
 
 for ( $counter = 0; $counter <= 10; $counter++ ) {
 
@@ -30,10 +43,10 @@ $uniqid = uniqid();
 echo "<TD>$uniqid</TD>";
 
 $substr = substr($uniqid,7,6);
-//echo "SubStr: $substr<BR>";
+echo "<TD>$substr</TD>";
 
 $reverse = strrev($substr);
-//echo "Reverse: $reverse<BR>";
+echo "<TD>$reverse</TD>";
 
 $deci = hexdec($reverse);
 $paddeddeci = sprintf("%08d", $deci);

@@ -21,11 +21,11 @@
 #$baseserver = "http://www.example.org/bitburro";
 $baseserver = "http://bitburro.example.org";
 
-# The "document root" path relative to the file system root
-$webrootroot = "/var/www/htdocs/";
+# The subdir path (relative to document root) where the files will be stored 
+$filepath = "bitburro/filebase";
 
-# The subdir path (relative to webroot) where the files will be stored 
-$filepath = "filebase";
+# Which permissions shall be set on directories and uploaded files?
+$permissions = "0755";
 
 # Do we allow tickets without a "sender" email address?
 #

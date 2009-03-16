@@ -13,26 +13,17 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-include("config/envvars.php"); ?>
+include("config/envvars.php");
+require("includes/functions.php"); ?>
 <html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
 <?php
 import_request_variables('p','p_');
 
 set_time_limit(0);
 
-$datestampexpire = date("U");
-echo "$datestampexpire<BR>";
-if ($p_maxage) {
-    echo "$p_maxage<bR>";
-    if ($p_maxage<31) {
-        $datestampexpire = $datestampexpire+86400*$p_maxage;
-    }
-}
-echo "$datestampexpire<BR>";
+$target_path = getticketdir($p_maxage);
+echo "$target_path<BR>";
 
-$randomnumber = rand();
-
-$target_path = "$filepath/$datestampexpire/$randomnumber/";
 $filename = basename( $_FILES['uploadedfile']['name']);
 
 $defaultfilename = "none";
@@ -53,9 +44,9 @@ if ($lastdotpos !== false) { // Split into name and extension, if any.
 if ($afterdot) $filename = $beforedot . "." . $afterdot;
     else $filename = $beforedot;
 
-$target_file = $target_path . $filename;
+$target_file = "$filepath/$target_path/$filename";
 
-mkdir ($target_path, 0755, 1);
+//mkdir ($target_path, 0755, 1);
 
 if ($_FILES['uploadedfile']['error']=="0") {
   if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_file)) {
