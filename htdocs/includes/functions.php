@@ -12,9 +12,13 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
+require ("includes/dynamicvars.php");
+include ("config/config.php");
+
 function getticketdir($maxage) {
 
-  include ("config/envvars.php");
+  global $filepath;
+  global $permissions;
 
   $datestampexpire = date("U");
   echo "$datestampexpire $maxage<BR>";
@@ -33,7 +37,8 @@ function getticketdir($maxage) {
   echo "$mkdirpath<BR>";
   echo "$permissions<BR>";
 
-  $mkdirsuccess = mkdir ($mkdirpath, $permissions, 1);
+  #$mkdirsuccess = mkdir ($mkdirpath, $permissions, 1);
+  $mkdirsuccess = mkdir ($mkdirpath, 0755, 1);
   if ($mkdirsuccess) {
     echo "Success: $mkdirsuccess<BR>";
   } else {

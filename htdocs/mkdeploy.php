@@ -13,7 +13,6 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-include("config/envvars.php");
 require("includes/functions.php"); ?>
 <html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
 <?php
@@ -44,9 +43,9 @@ if ($lastdotpos !== false) { // Split into name and extension, if any.
 if ($afterdot) $filename = $beforedot . "." . $afterdot;
     else $filename = $beforedot;
 
-$target_file = "$filepath/$target_path/$filename";
+$target_file = "$documentroot/$filepath/$target_path/$filename";
 
-//mkdir ($target_path, 0755, 1);
+echo "$target_file<BR>";
 
 if ($_FILES['uploadedfile']['error']=="0") {
   if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_file)) {

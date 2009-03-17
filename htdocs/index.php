@@ -12,7 +12,7 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-include("config/envvars.php");
+require("includes/functions.php");
 
 $templatetags = array("%%%SITENAME%%%", "%%%MAILADDRESS%%%");
 $templatesubst = array($sitename, $mailsupport);
