@@ -13,7 +13,7 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-include("config/envvars.php"); ?>
+require("includes/functions.php"); ?>
 <html><head><title><?php echo $sitename ?> - Dateiablage</title></head><body>
 <?php
 
