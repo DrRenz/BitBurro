@@ -34,6 +34,9 @@ $allow_anonymous_submission = "1";
 # ...for creating an upload ticket:
 $allow_anonymous_uploads = "1";
 
+# How many tries to get an unique ticket number?
+$maxchecks=1024;
+
 
 #
 # SECTION APPEARANCE

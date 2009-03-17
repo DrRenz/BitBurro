@@ -15,35 +15,64 @@
 require ("includes/dynamicvars.php");
 include ("config/config.php");
 
+
+function getUniqueID($path,$maxage) {
+
+  global $maxchecks;
+
+  $trysleft = $maxchecks;
+  do {
+    $expiry = date("U")+86400*$maxage;
+    $id = getRandomID();
+    $idpath=$path.'/'.$expiry;
+  } while (isIDUnique($idpath, $id) == FALSE && --$trysleft);
+  if (!$trysleft) {
+    // Damn, can't find any unique IDs. The apocalypse must have happened!
+    die("The apocalypse must have happened! (Or LHC started working)");
+  }
+  return $expiry.'/'.$id;
+}
+
+
+function getRandomID() {
+  // Choose one:
+  // return rand();
+  return md5(microtime());
+  // return sprintf("%08d", hexdec(strrev(substr(uniqid(),7,6))));
+  // use your own...
+}
+
+
+function isIDUnique($path, $id) {
+  $path2check="$path/$id";
+  // For testing:
+  //mkdir($path2check,0755,1);
+  if (is_dir($path2check)) {
+    // Directory exists, so it's not unique :-(
+    return FALSE;
+  } else {
+    return TRUE;
+  }
+}
+
+
 function getticketdir($maxage) {
 
+  global $documentroot;
   global $filepath;
   global $permissions;
 
-  $datestampexpire = date("U");
-  echo "$datestampexpire $maxage<BR>";
-  if ($maxage) {
-      if ($maxage<31) {
-          $datestampexpire = $datestampexpire+86400*$maxage;
-      }
-  }
-  echo "$datestampexpire<BR>";
-
-  $paddeduniq = sprintf("%08d", hexdec(strrev(substr(uniqid(),7,6))));
-  $target_path = "$datestampexpire/$paddeduniq/";
-  $documentroot=$_SERVER['DOCUMENT_ROOT'];
+  $checkidpath = "$documentroot/$filepath";
+  $target_path = getUniqueID($checkidpath,$maxage);
   $mkdirpath = "$documentroot/$filepath/$target_path";
-  echo "$target_path<BR>";
-  echo "$mkdirpath<BR>";
-  echo "$permissions<BR>";
 
   #$mkdirsuccess = mkdir ($mkdirpath, $permissions, 1);
-  $mkdirsuccess = mkdir ($mkdirpath, 0755, 1);
-  if ($mkdirsuccess) {
-    echo "Success: $mkdirsuccess<BR>";
-  } else {
-    echo "Fail: $mkdirsuccess<BR>";
-  }
+  $mkdirsuccess = mkdir ($mkdirpath, 0775, 1);
+  #if ($mkdirsuccess) {
+    #echo "Success: $mkdirsuccess<BR>";
+  #} else {
+    #echo "Fail: $mkdirsuccess<BR>";
+  #}
 
   return $target_path;  
 }
