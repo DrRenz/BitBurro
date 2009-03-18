@@ -15,6 +15,8 @@
 include ("config/config.php");
 require ("includes/dynamicvars.php");
 
+// Just a test
+include ("templates/stylesheet.css");
 
 function getUniqueID($path,$maxage) {
 

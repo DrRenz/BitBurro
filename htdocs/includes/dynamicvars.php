@@ -17,14 +17,14 @@ global $filepath;
 
 $documentroot=$_SERVER['DOCUMENT_ROOT'];
 
-$filebase_fs=$documentroot.'/'.$filepath;
-
 if (SSLCon()) {
   $accessmethod="https://";
 } else {
   $accessmethod="http://";
 }
 
-$filebase_url=$accessmethod.$baseserver.'/'.$filepath;
+$base_url=$accessmethod.$baseserver;
+$filebase_url=$base_url.'/'.$filepath;
+$filebase_fs=$documentroot.'/'.$filepath;
 
 ?>
