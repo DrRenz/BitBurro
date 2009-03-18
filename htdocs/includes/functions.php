@@ -12,8 +12,8 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-require ("includes/dynamicvars.php");
 include ("config/config.php");
+require ("includes/dynamicvars.php");
 
 
 function getUniqueID($path,$maxage) {
@@ -93,4 +93,31 @@ function SSLCon(){
     }
   }
 } 
+
+
+function createACL($password,$sourcemail,$targetmail,$targetdir) {
+
+  global $sitename;
+
+  $cryptedpassword = crypt($password, base64_encode($password));
+
+  $passfilecontent="$targetmail:$cryptedpassword\r\n";
+  if ($sourcemail) $passfilecontent.="$sourcemail:$cryptedpassword\r\n";
+
+  $passfilename=$targetdir."/.htpasswd";
+  $passfile=fopen($passfilename,"w");
+  fwrite($passfile,$passfilecontent);
+  fclose($passfile);
+
+  $accesscontent="AuthName \"".$sitename."-Passwortschutz\"\r\n";
+  $accesscontent.="AuthType Basic\r\n";
+  $accesscontent.="AuthUserFile $targetdir/.htpasswd\r\n";
+  $accesscontent.="require valid-user\r\n";
+
+  $accessfilename=$targetdir . "/.htaccess";
+  $accessfile=fopen($accessfilename,"w");
+  fwrite($accessfile,$accesscontent);
+  fclose($accessfile);
+}
+
 ?>

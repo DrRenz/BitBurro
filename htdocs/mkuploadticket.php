@@ -24,7 +24,6 @@ echo "$target_path<BR>";
 
 $linkaddress = $baseserver . "/" . $target_path;
 echo "Start Datei-Handling...<BR>";
-print_r($_FILES);
 
 $indexfilecontent="<html><head><meta HTTP-EQUIV=\"REFRESH\" content=\"1; url=$baseserver/mkfileupload.php?id1=$datestampexpire&id2=$randomnumber\">";
 $indexfilecontent.="<title>$sitename - Redirect</title></head><body>Einen Moment...</body></html>\r\n";

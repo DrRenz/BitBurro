@@ -34,39 +34,43 @@ if ($basedirhandle = opendir($fullpath)) {
           while (false !== ($subcontent = readdir($subdirhandle))) {
             if ($subcontent != "." && $subcontent != "..") {
               $contentpath="$fullpath/$content/$subcontent";
-              $delcheckvar="p_{$content}-{$subcontent}";
-              echo "<TR><TD>";
-              if (isset($$delcheckvar)) {
-                if ($$delcheckvar=="on") {
-                  echo 'Deleted.';
+              if (is_dir($contentpath)) {
+                $delcheckvar="p_{$content}-{$subcontent}";
+                echo "<TR><TD>";
+                if (isset($$delcheckvar)) {
+                  if ($$delcheckvar=="on") {
+                    echo 'Deleted.';
+                  }
+                } else {
+                  echo '<input type="checkbox" name="'.$content.'-'.$subcontent.'">';
                 }
-              } else {
-                echo '<input type="checkbox" name="'.$content.'-'.$subcontent.'">';
-              }
-              echo '</TD><TD>'.$content.'/'.$subcontent.'</TD><TD>';
-              if ($contenthandle = opendir($contentpath)) {
-                while (false !== ($contentcontent = readdir($contenthandle))) {
-                  if ($contentcontent != "." && $contentcontent != "..") {
-                    if (isset($$delcheckvar)) {
-                      if ($$delcheckvar=="on") {
-                        $killthisfile="$fullpath/$content/$subcontent/$contentcontent";
-                        unlink($killthisfile);
-                        echo "$contentcontent deleted.<BR>";
+                echo '</TD><TD>'.$content.'/'.$subcontent.'</TD><TD>';
+                if ($contenthandle = opendir($contentpath)) {
+                  while (false !== ($contentcontent = readdir($contenthandle))) {
+                    if ($contentcontent != "." && $contentcontent != "..") {
+                      if (isset($$delcheckvar)) {
+                        if ($$delcheckvar=="on") {
+                          $killthisfile="$fullpath/$content/$subcontent/$contentcontent";
+                          unlink($killthisfile);
+                          echo "$contentcontent deleted.<BR>";
+                        }
+                      } else {
+                        echo '<A HREF="'.$content.'/'.$subcontent.'/'.$contentcontent.'">'.$contentcontent.'<BR>';
                       }
-                    } else {
-                      echo '<A HREF="'.$content.'/'.$subcontent.'/'.$contentcontent.'">'.$contentcontent.'<BR>';
+                    }
+                  }
+                  closedir($contenthandle);
+                  if (isset($$delcheckvar)) {
+                    if ($$delcheckvar=="on") {
+                      $killthisdir="$fullpath/$content/$subcontent";
+                      rmdir($killthisdir);
+                      $killthisdir="$fullpath/$content";
+                      rmdir($killthisdir);
                     }
                   }
                 }
-                closedir($contenthandle);
-                if (isset($$delcheckvar)) {
-                  if ($$delcheckvar=="on") {
-                    $killthisdir="$fullpath/$content/$subcontent";
-                    rmdir($killthisdir);
-                  }
-                }
+                echo '</TD></TR>';
               }
-              echo '</TD></TR>';
             }
           }
         }
