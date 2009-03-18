@@ -14,13 +14,6 @@
 
 require("includes/functions.php");
 
-$templatetags = array("%%%SITENAME%%%", "%%%MAILADDRESS%%%");
-$templatesubst = array($sitename, $mailsupport);
-
-$indexfilename="templates/index.html";
-$templatecontent = file_get_contents($indexfilename);
-$outputcontent = str_replace($templatetags, $templatesubst, $templatecontent);
-
-echo $outputcontent;
+showHTMLFromTemplate("index.html");
 
 ?>

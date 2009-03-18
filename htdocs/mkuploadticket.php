@@ -12,40 +12,38 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-require("includes/functions.php"); ?>
-<html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
-<?php
+require("includes/functions.php");
+
+echo'<html><head><title>'.$sitename.' - Statusseite</title></head>';
+echo '<body><pre>Start des Filehandlings...<BR>';
+
 import_request_variables('p','p_');
 
-set_time_limit(0);
+//set_time_limit(0);
 
-$target_path = getticketdir($p_maxage);
-echo "$target_path<BR>";
+$idpath = getticketdir($p_maxage);
+echo "$idpath<BR>";
 
-$linkaddress = $baseserver . "/" . $target_path;
-echo "Start Datei-Handling...<BR>";
+$singleids=explode("/",$idpath,2);
+var_dump($singleids);
 
-$indexfilecontent="<html><head><meta HTTP-EQUIV=\"REFRESH\" content=\"1; url=$baseserver/mkfileupload.php?id1=$datestampexpire&id2=$randomnumber\">";
+$target_dir_fs = "$filebase_fs/$idpath";
+$target_dir_url = "$filebase_url/$idpath";
+
+echo "Start Datei-Handling...<BR>$target_dir_fs<BR>$target_dir_url<BR>";
+
+$indexfilecontent="<html><head><meta HTTP-EQUIV=\"REFRESH\" content=\"1; url=$baseserver/mkfileupload.php?id1=$singleids[0]&id2=$singleids[1]\">";
 $indexfilecontent.="<title>$sitename - Redirect</title></head><body>Einen Moment...</body></html>\r\n";
-$indexfilename=$target_path . "upload.html";
+$indexfilename=$target_dir_fs."/upload.html";
 $indexfile=fopen($indexfilename,"w");
 fwrite($indexfile,$indexfilecontent);
 fclose($indexfile);
 
 $accesscontent="";
-if ($p_passenable == "on") {
+  if (isset($p_passenable)) if ($p_passenable == "on") {
     echo "Passwort-Schutz wird gesetzt...<BR>";
-    $cryptedpassword = crypt($p_password, base64_encode($p_password));
-    $passfilecontent="$p_targetmail:$cryptedpassword\r\n";
-  
-    $passfilename=$target_path . ".htpasswd";
-    $passfile=fopen($passfilename,"w");
-    fwrite($passfile,$passfilecontent);
-    fclose($passfile);
-    $accesscontent="AuthName \"".$sitename."-Passwortschutz\"\r\n";
-    $accesscontent.="AuthType Basic\r\n";
-    $accesscontent.="AuthUserFile $webrootroot/$target_path/.htpasswd\r\n";
-    $accesscontent.="require valid-user\r\n";
+    //createACL($p_password,$p_sourcemail,$p_targetmail,$target_dir_fs);
+   //FixMe: htaccess wird mit angelegt, soll aber in diesem Fall nich...
 }
 $accesscontent.="Options +Indexes\r\n";
 $accesscontent.="IndexOptions FancyIndexing\r\n";
@@ -53,7 +51,7 @@ $accesscontent.="IndexIgnore upload.html\r\n";
 $accesscontent.="IndexIgnore README.txt\r\n";
 $accesscontent.="HeaderName README.txt\r\n";
 
-$accessfilename=$target_path . ".htaccess"; 
+$accessfilename=$target_dir_fs . "/.htaccess"; 
 $accessfile=fopen($accessfilename,"w");
 fwrite($accessfile,$accesscontent);
 fclose($accessfile);
@@ -62,14 +60,14 @@ if ($p_sourcemail) {
     $readmecontent="Hallo $sitename-Kunde!\r\n";
     $readmecontent.="Dieses Verzeichnis wurde fuer Sie angelegt von $p_sourcemail. Viel Spass!\r\n";
 
-    $readmefilename=$target_path . "README.txt"; 
+    $readmefilename=$target_dir_fs . "/README.txt"; 
     $readmefile=fopen($readmefilename,"w");
     fwrite($readmefile,$readmecontent);
     fclose($readmefile);
 }
 
 echo "<B>Upload-Verzeichnis erfolgreich angelegt.</B><BR>";
-echo "Gesamter Link ist: <A HREF=\"$linkaddress\">$linkaddress</A><BR>";
+echo 'Gesamter Link ist: <A HREF="'.$target_dir_url.'">'.$target_dir_url.'</A><BR>"';
     
 if ($p_targetmail) {
     echo "Mail wird verschickt...<BR>";
@@ -83,11 +81,11 @@ if ($p_targetmail) {
 
     $content="Hallo lieber $sitename-Kunde,\r\n\r\n";
     $content.="fuer Sie wurde ein Upload-Verzeichnis bereitgestellt. Sie koennen nun unter\r\n\r\n";
-    $content.=$linkaddress."upload.html\r\n\r\n";
+    $content.=$target_dir_url."/upload.html\r\n\r\n";
     $content.="Dateien hinterlegen. Eine Uebersicht ueber die Inhalte bekommen Sie unter \r\n\r\n";
-    $content.="$linkaddress\r\n\r\n";
+    $content.="$target_dir_url\r\n\r\n";
     $content.="angezeigt.\r\n\r\n";
-    if ($p_passenable == "on" ) {
+    if (isset($p_passenable)) if ($p_passenable == "on" ) {
         $content.="Fuer das Verzeichnis wurde ein Passwort hinterlegt; das Passwort lautet: \"" . $p_password . "\"\r\n\r\n";
     }
     $content.="Die Verzeichnisinhalte werden ";
