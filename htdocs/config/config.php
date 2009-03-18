@@ -20,7 +20,7 @@
 # This server's base URL (only host with method, or any subdirectory thereof)
 #$baseserver = "www.example.org/bitburro";
 #$baseserver = "bitburro.example.org";
-$baseserver = $_SERVER['HTTP_HOST'];
+$baseserver = $_SERVER['SERVER_NAME'];
 
 # The subdir path (relative to document root) where the files will be stored 
 $filepath = "bitburro/filebase";

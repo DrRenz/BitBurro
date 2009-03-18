@@ -53,6 +53,5 @@ echo "<TD>$paddeddeci</TD></TR>";
 }
 echo "</TABLE>";
 
-phpinfo();
 ?>
 </body></html>

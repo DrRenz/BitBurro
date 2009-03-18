@@ -32,7 +32,9 @@ $target_dir_url = "$filebase_url/$idpath";
 
 echo "Start Datei-Handling...<BR>$target_dir_fs<BR>$target_dir_url<BR>";
 
-$indexfilecontent="<html><head><meta HTTP-EQUIV=\"REFRESH\" content=\"1; url=$baseserver/mkfileupload.php?id1=$singleids[0]&id2=$singleids[1]\">";
+// FixMe: Target zeigt noch auf Server-Root...
+$uploadtarget=$base_url.'/mkfileupload.php?id1='.$singleids[0].'&id2='.$singleids[1];
+$indexfilecontent="<html><head><meta HTTP-EQUIV=\"REFRESH\" content=\"1; url=$uploadtarget\">";
 $indexfilecontent.="<title>$sitename - Redirect</title></head><body>Einen Moment...</body></html>\r\n";
 $indexfilename=$target_dir_fs."/upload.html";
 $indexfile=fopen($indexfilename,"w");
@@ -67,7 +69,8 @@ if ($p_sourcemail) {
 }
 
 echo "<B>Upload-Verzeichnis erfolgreich angelegt.</B><BR>";
-echo 'Gesamter Link ist: <A HREF="'.$target_dir_url.'">'.$target_dir_url.'</A><BR>"';
+echo 'Gesamter Link ist: <A HREF="'.$target_dir_url.'">'.$target_dir_url.'</A><BR>';
+echo 'Dateien hinterlegen mit: <A HREF="'.$target_dir_url.'/upload.html">'.$target_dir_url.'/upload.html</A><BR>';
     
 if ($p_targetmail) {
     echo "Mail wird verschickt...<BR>";
