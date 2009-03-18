@@ -13,15 +13,17 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
-require("includes/functions.php"); ?>
-<html><head><title><?php echo $sitename ?> - Statusseite</title></head><body><pre>Start des Filehandlings...<BR>
-<?php
+require("includes/functions.php");
+
+echo'<html><head><title>'.$sitename.' - Statusseite</title></head>';
+echo '<body><pre>Start des Filehandlings...<BR>';
+
 import_request_variables('p','p_');
 
-set_time_limit(0);
+//set_time_limit(0);
 
-$target_path = getticketdir($p_maxage);
-echo "$target_path<BR>";
+$idpath = getticketdir($p_maxage);
+echo "$idpath<BR>";
 
 $filename = basename( $_FILES['uploadedfile']['name']);
 
@@ -43,38 +45,20 @@ if ($lastdotpos !== false) { // Split into name and extension, if any.
 if ($afterdot) $filename = $beforedot . "." . $afterdot;
     else $filename = $beforedot;
 
-$target_file = "$documentroot/$filepath/$target_path/$filename";
-
-echo "$target_file<BR>";
+$target_dir_fs = "$filebase_fs/$idpath";
+$target_file_fs = "$target_dir_fs/$filename";
+$target_file_url = "$filebase_url/$idpath/$filename";
 
 if ($_FILES['uploadedfile']['error']=="0") {
-  if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_file)) {
-      $linkaddress = $baseserver . "/" . $target_file;
+  if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_file_fs)) {
       echo "Start Datei-Handling...<BR>";
-      print_r($_FILES);
-      if ($p_passenable == "on") {
+      //print_r($_FILES);
+      if (isset($p_passenable)) if ($p_passenable == "on") {
           echo "Passwort-Schutz wird gesetzt...<BR>";
-          $cryptedpassword = crypt($p_password, base64_encode($p_password));
-          $passfilecontent="$p_targetmail:$cryptedpassword\r\n";
-          if ($p_sourcemail) $passfilecontent.="$p_sourcemail:$cryptedpassword\r\n";
-  
-          $passfilename=$target_path . ".htpasswd";
-          $passfile=fopen($passfilename,"w");
-          fwrite($passfile,$passfilecontent);
-          fclose($passfile);
-  
-          $accesscontent="AuthName \"".$sitename."-Passwortschutz\"\r\n";
-          $accesscontent.="AuthType Basic\r\n";
-          $accesscontent.="AuthUserFile $webrootroot/$target_path/.htpasswd\r\n";
-          $accesscontent.="require valid-user\r\n";
-
-          $accessfilename=$target_path . ".htaccess"; 
-          $accessfile=fopen($accessfilename,"w");
-          fwrite($accessfile,$accesscontent);
-          fclose($accessfile);
+          createACL($p_password,$p_sourcemail,$p_targetmail,$target_dir_fs);
       }
       echo "<B>Datei erfolgreich empfangen.</B><BR>";
-      echo "Gesamter Link ist: <A HREF=\"$linkaddress\">$linkaddress</A><BR>";
+      echo 'Gesamter Link ist: <A HREF="'.$target_file_url.'">'.$target_file_url.'</A><BR>"';
     
       if ($p_targetmail) {
           echo "Mail wird verschickt...<BR>";
@@ -88,7 +72,7 @@ if ($_FILES['uploadedfile']['error']=="0") {
 
           $content="Hallo lieber $sitename-Kunde,\r\n\r\n";
           $content.="fuer Sie wurde eine neue Datei bereitgestellt. Sie koennen diese unter\r\n\r\n";
-          $content.="$linkaddress\r\n\r\n";
+          $content.="$target_file_url\r\n\r\n";
           $content.="abrufen.\r\n\r\n";
           if ($p_passenable == "on" ) {
               $content.="Fuer die Datei wurde ein Passwort hinterlegt; das Passwort lautet: \"" . $p_password . "\"\r\n\r\n";

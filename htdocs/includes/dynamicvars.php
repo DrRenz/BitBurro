@@ -12,5 +12,11 @@
 # This file is part of the BitBurro project.
 # Feedback/comment/suggestions: http://bitburro.sf.net
 
+global $baseserver;
+global $filepath;
+
 $documentroot=$_SERVER['DOCUMENT_ROOT'];
+$filebase_fs=$documentroot.'/'.$filepath;
+$filebase_url=$baseserver.'/'.$filepath;
+echo "DynInclude: $filebase_url<BR>";
 ?>
