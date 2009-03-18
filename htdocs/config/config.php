@@ -18,14 +18,18 @@
 #
 
 # This server's base URL (only host with method, or any subdirectory thereof)
-#$baseserver = "http://www.example.org/bitburro";
-$baseserver = "http://bitburro.example.org";
+#$baseserver = "www.example.org/bitburro";
+#$baseserver = "bitburro.example.org";
+$baseserver = $_SERVER['HTTP_HOST'];
 
 # The subdir path (relative to document root) where the files will be stored 
 $filepath = "bitburro/filebase";
 
 # Which permissions shall be set on directories and uploaded files?
 $permissions = "0755";
+
+# Where are the HTML template stored (relative to document root)?
+$templatepath = "templates";
 
 # Do we allow tickets without a "sender" email address?
 #

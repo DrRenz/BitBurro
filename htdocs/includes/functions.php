@@ -37,8 +37,8 @@ function getUniqueID($path,$maxage) {
 function getRandomID() {
   // Choose one:
   // return rand();
-  return md5(microtime());
-  // return sprintf("%08d", hexdec(strrev(substr(uniqid(),7,6))));
+  // return md5(microtime());
+  return sprintf("%08d", hexdec(strrev(substr(uniqid(),7,6))));
   // use your own...
 }
 
@@ -78,19 +78,23 @@ function getticketdir($maxage) {
 }
 
 function SSLCon(){ 
-  switch ($_SERVER['HTTPS']) {
-    case 1: {
-       return TRUE;
+  if(isset($_SERVER['HTTPS'])) {
+    switch ($_SERVER['HTTPS']) {
+      case 1: {
+         return TRUE;
+      }
+      case "on": {
+         return TRUE;
+      }
+      case "off": { 
+         return FALSE; 
+      }
+      default: {
+         return FALSE;
+      }
     }
-    case "on": {
-       return TRUE;
-    }
-    case "off": { 
-       return FALSE; 
-    }
-    default: {
-       return FALSE;
-    }
+  } else {
+    return FALSE;
   }
 } 
 
@@ -118,6 +122,24 @@ function createACL($password,$sourcemail,$targetmail,$targetdir) {
   $accessfile=fopen($accessfilename,"w");
   fwrite($accessfile,$accesscontent);
   fclose($accessfile);
+}
+
+
+function showHTMLFromTemplate($templatefile) {
+
+  global $documentroot;
+  global $templatepath;
+  global $sitename;
+  global $mailsupport;
+
+  $templatetags = array("%%%SITENAME%%%", "%%%MAILADDRESS%%%");
+  $templatesubst = array($sitename, $mailsupport);
+
+  $templatefilename="$templatepath/$templatefile";
+  $templatecontent = file_get_contents($templatefilename);
+  $outputcontent = str_replace($templatetags, $templatesubst, $templatecontent);
+
+  echo $outputcontent;
 }
 
 ?>

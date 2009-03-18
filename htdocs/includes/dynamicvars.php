@@ -16,7 +16,15 @@ global $baseserver;
 global $filepath;
 
 $documentroot=$_SERVER['DOCUMENT_ROOT'];
+
 $filebase_fs=$documentroot.'/'.$filepath;
-$filebase_url=$baseserver.'/'.$filepath;
-echo "DynInclude: $filebase_url<BR>";
+
+if (SSLCon()) {
+  $accessmethod="https://";
+} else {
+  $accessmethod="http://";
+}
+
+$filebase_url=$accessmethod.$baseserver.'/'.$filepath;
+
 ?>
